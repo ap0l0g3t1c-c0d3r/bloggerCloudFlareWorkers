@@ -1,0 +1,20 @@
+{
+  "name": "@ap0l0g3t1ck1ll3r/blog-common",
+  "version": "1.0.3",
+  "main": "./dist/index.js",
+  "keywords": [
+    "schema",
+    "validation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "common module for validation of blogs",
+  "dependencies": {
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "types": "./dist/index.d.ts"
+}
