@@ -7,9 +7,12 @@ import { PublishBlog } from "./pages/PublishBlog"
 
 function App() {
 
+  console.log("to check the deployment")
+
   return (
     <>
       <Routes>
+        <Route path="/" element={ <SigninRoute/> }/>
         <Route path="/signin" element={ <SigninRoute/> }/>
         <Route path="/signup" element={ <SignupRoute/>}/>
         <Route path="/blog" element={ <BlogRoute/>}/>
