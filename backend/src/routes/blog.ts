@@ -25,7 +25,7 @@ blogRouter.use("/*", async (c, next)=> {
       }).$extends(withAccelerate())
   
   const token = c.req.header("Authorization") || ""
-
+  console.log("token", token)
   let responce: jwtPayload
   try {
     responce = await verify(token, c.env.SECRET) as jwtPayload
@@ -58,7 +58,7 @@ blogRouter.post("/", async (c)=> {
    const body = await c.req.json()
   //  console.log("This is the post body", body)
    
-   const blogId = c.get('userId')
+   const userId = c.get('userId')
     
    const { success } = createBlogInput.safeParse(body)
 
@@ -71,7 +71,8 @@ blogRouter.post("/", async (c)=> {
    data:{
         title: body.title,
         content: body.content,
-        userId: blogId
+        userId: userId,
+        publishedDate: new Date()
     } 
    })
   return c.json({blog})
@@ -104,6 +105,7 @@ blogRouter.put("/:id", async (c)=> {
         title: body.title,
         content: body.content,
         published: body.published,
+        publishedDate: new Date()
       }
     })
     return c.json({blog})  
@@ -123,7 +125,7 @@ blogRouter.put("/:id", async (c)=> {
   
   })
 
-blogRouter.get("/", async (c)=> {
+blogRouter.get("", async (c)=> {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL
     })
@@ -132,13 +134,24 @@ blogRouter.get("/", async (c)=> {
         const blogs = await prisma.blogs.findMany({
         where:{
                 userId: blogId
+            },
+        select: {
+            content: true,
+            title: true,
+            publishedDate: true,
+            id: true,
+            user: {
+              select:{
+                username: true
+                }
+              }
             }
         })
         return c.json({blogs})
     } catch (error) {
         console.log(error)
         c.status(411)
-        return c.json({"message": "could n ot find the ID"})
+        return c.json({"message": "could not find the ID"})
     }
 })
 
@@ -150,9 +163,20 @@ blogRouter.get("/:id", async (c)=> {
     const blogId = c.req.param("id")
     try {
         const blogs = await prisma.blogs.findMany({
-        where:{
+            where:{
                 userId: userId,
                 id: blogId
+            },
+            select: {
+            content: true,
+            title: true,
+            publishedDate: true,
+            id: true,
+            user: {
+              select:{
+                username: true
+                }
+              }
             }
         })
         return c.json({blogs})

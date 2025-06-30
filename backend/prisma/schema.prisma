@@ -18,6 +18,7 @@ datasource db {
 model User{
   id    String  @id @default(uuid())
   email String    @unique
+  username String?
   password String 
   blogs Blogs[]
 }
@@ -27,6 +28,7 @@ model Blogs{
   title String    @unique
   content String
   published Boolean @default(false)
+  publishedDate DateTime @default(now())
   userId String   
   user User     @relation(fields: [userId], references: [id])
 }

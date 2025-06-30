@@ -12,7 +12,6 @@ export const userRouter = new Hono<{
 }>()
 
  
-
 userRouter.post("/signup", async (c) => {
 
   const prisma = new PrismaClient({
@@ -40,7 +39,8 @@ userRouter.post("/signup", async (c) => {
   const user = await prisma.user.create({
     data: {
       email: body.email,
-      password: body.password
+      password: body.password,
+      username: body.username
     }})
   
   const token = await sign({id: user.id}, c.env.SECRET)
