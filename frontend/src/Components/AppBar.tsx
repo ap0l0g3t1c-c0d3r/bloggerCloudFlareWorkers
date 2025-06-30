@@ -38,10 +38,10 @@ function DarkCircle(){
     )
 }
 
-function Publish(){
-    return(
-        <div className="flex justify-center items-center w-20 rounded-2xl border-2 bg-green-600 border-green-300">
-            Publish
-        </div>
-    )
-}
+// function Publish(){
+//     return(
+//         <div className="flex justify-center items-center w-20 rounded-2xl border-2 bg-green-600 border-green-300">
+//             Publish
+//         </div>
+//     )
+// }

@@ -1,11 +1,9 @@
 import type { blogAPI } from "../hooks"
-import { AppBar } from "./AppBar"
 import { Avatar } from "./BlogCard"
 
 export function FullBlog({blog}:{blog: blogAPI}){
     return(
         <div>
-            <AppBar/>
             <div className="flex flex-row h-screen m-4 justify-between ">
                 <div className="flex justify-center px-auto w-4/5">
                     <div className="border-2 border-red-500 px-5 mx-auto min-w-1/2 max-md:w-full">
